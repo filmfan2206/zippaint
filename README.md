@@ -1,4 +1,4 @@
-# ZipPaint — a tiny Paint for macOS
+# ZipPaint — a tiny Paint program for macOS
 
 A very small, fast, native macOS app in the spirit of classic Windows Paint,
 built for one workflow:
