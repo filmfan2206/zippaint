@@ -5,6 +5,8 @@ built for one workflow:
 
 > **Paste a picture in → mark it up → Cmd+C → paste it anywhere.**
 
+![ZipPaint marking up a pasted screenshot with highlighter, arrow, rectangle, and text annotations](docs/screenshot.png)
+
 No document management, no layers, no filters. Just a canvas, a few marking
 tools, and rock-solid clipboard support.
 
