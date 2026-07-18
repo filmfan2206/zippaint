@@ -1,0 +1,5 @@
+.build/
+ZipPaint.app/
+.DS_Store
+lancedb/
+.claude/
