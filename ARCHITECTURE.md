@@ -31,7 +31,8 @@ zippaint/
 ├── build.sh                 # swift build + assemble ZipPaint.app
 ├── Sources/ZipPaint/
 │   ├── main.swift           # NSApplication bootstrap
-│   ├── AppDelegate.swift    # window creation, menu bar, app lifecycle
+│   ├── AppDelegate.swift    # menu bar, app lifecycle, window bookkeeping
+│   ├── CanvasWindowController.swift # one canvas window: document + chrome + actions
 │   ├── Document.swift       # model: base image + annotation list + undo
 │   ├── Annotation.swift     # stroke/shape/text value types
 │   ├── CanvasView.swift     # NSView: drawing, mouse tracking, flattening
