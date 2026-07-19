@@ -128,11 +128,25 @@ A borderless `NSTextField` is placed at the click point; on Enter/Esc or
 focus loss its string is committed as a `.text` annotation and the field
 is removed. This avoids implementing a text editor inside the canvas.
 
+### Multiple windows
+
+Each window is a `CanvasWindowController` (an `NSWindowController`
+subclass) owning its own `Document`, canvas, tool palette, color bar,
+and zoom — there is no shared state between windows. Menu items carry
+**no target**, so their actions resolve through the responder chain to
+the key window's controller; that is the entire routing mechanism.
+`AppDelegate` shrinks to menu construction plus bookkeeping: an array of
+live controllers (pruned via an `onWindowClose` callback), cascading new
+windows, and the quit-time check across all windows. The controller's
+model property is named `doc` because `NSWindowController` already
+declares `document`.
+
 ## Menu bar
 
 Built programmatically in `AppDelegate`:
 
-- **File**: Open… (Cmd+O), Save As PNG… (Cmd+S)
+- **File**: New (Cmd+N), Open… (Cmd+O), Close Window (Cmd+W),
+  Save As PNG… (Cmd+S)
 - **Edit**: Undo (Cmd+Z), Redo (Shift+Cmd+Z), Copy (Cmd+C), Paste (Cmd+V)
 - Standard App and Window menus.
 

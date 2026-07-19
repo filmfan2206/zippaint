@@ -77,3 +77,14 @@ The app becomes useful at the end of this phase.
   frame the keep-area, Return/⌘K applies, Esc cancels. Crop, resize,
   rotate, and flip are now undoable with Cmd+Z (restores prior image,
   size, and live markup strokes).
+- **2026-07-18** — Multi-window support: File ▸ New (⌘N) opens extra
+  windows (cascaded), each a fully independent document with its own
+  markup, undo, tools, and zoom; Close Window (⌘W) confirms before
+  discarding markup, and Quit asks once across all windows. Done as an
+  extraction refactor first (window code moved from AppDelegate into
+  CanvasWindowController; menu actions nil-targeted through the
+  responder chain), then the multi-window bookkeeping on top.
+  Verified by scripted UI tests: second window opens, paste lands only
+  in the frontmost window, per-window close, last-window-close quits,
+  discard confirm appears. **Hands-on check still wanted**: the
+  Cancel / Discard buttons of the close confirmation.

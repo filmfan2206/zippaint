@@ -2,13 +2,11 @@ import AppKit
 
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate {
-    private var controller: CanvasWindowController!
+    private var controllers: [CanvasWindowController] = []
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         buildMenu()
-        controller = CanvasWindowController()
-        controller.window?.center()
-        controller.showWindow(nil)
+        newDocument(nil)
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -16,9 +14,25 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationShouldTerminate(_ sender: NSApplication) -> NSApplication.TerminateReply {
-        guard controller.doc.hasMarkup else { return .terminateNow }
+        guard controllers.contains(where: { $0.doc.hasMarkup }) else { return .terminateNow }
         return CanvasWindowController.confirmDiscard("Quit and discard your markup?")
             ? .terminateNow : .terminateCancel
+    }
+
+    // Each window is an independent document with its own tools and zoom.
+    @objc func newDocument(_ sender: Any?) {
+        let controller = CanvasWindowController()
+        controller.onWindowClose = { [weak self, weak controller] in
+            self?.controllers.removeAll { $0 === controller }
+        }
+        if let previous = controllers.last?.window, let window = controller.window {
+            _ = window.cascadeTopLeft(from: NSPoint(x: previous.frame.minX,
+                                                    y: previous.frame.maxY))
+        } else {
+            controller.window?.center()
+        }
+        controllers.append(controller)
+        controller.showWindow(nil)
     }
 
     // MARK: - Menu
@@ -41,7 +55,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         let fileItem = NSMenuItem()
         mainMenu.addItem(fileItem)
         let fileMenu = NSMenu(title: "File")
+        fileMenu.addItem(menuItem("New", #selector(AppDelegate.newDocument(_:)), "n"))
         fileMenu.addItem(menuItem("Open…", #selector(CanvasWindowController.openImage(_:)), "o"))
+        fileMenu.addItem(.separator())
+        fileMenu.addItem(menuItem("Close Window", #selector(NSWindow.performClose(_:)), "w"))
         fileMenu.addItem(menuItem("Save As PNG…", #selector(CanvasWindowController.saveImage(_:)), "s"))
         fileItem.submenu = fileMenu
 

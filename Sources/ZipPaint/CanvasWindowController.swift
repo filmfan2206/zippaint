@@ -8,6 +8,8 @@ import Vision
 @MainActor
 final class CanvasWindowController: NSWindowController {
     let doc = Document()
+    // Lets AppDelegate drop its reference once the window is gone.
+    var onWindowClose: (() -> Void)?
     private var canvas: CanvasView!
     private var scroll: NSScrollView!
     private var palette: ToolPaletteView!
@@ -32,6 +34,7 @@ final class CanvasWindowController: NSWindowController {
         window.contentMinSize = NSSize(width: 440, height: 400)
         window.isReleasedWhenClosed = false
         super.init(window: window)
+        window.delegate = self
         window.contentView = buildContent()
         resizeWindowToFitCanvas()
     }
@@ -500,6 +503,20 @@ final class CanvasWindowController: NSWindowController {
         alert.addButton(withTitle: "Discard")
         alert.addButton(withTitle: "Cancel")
         return alert.runModal() == .alertFirstButtonReturn
+    }
+}
+
+extension CanvasWindowController: NSWindowDelegate {
+    // Cmd+W / the close button must not silently discard markup. (Quit goes
+    // through applicationShouldTerminate instead, which asks once for all
+    // windows and never reaches this.)
+    func windowShouldClose(_ sender: NSWindow) -> Bool {
+        !doc.hasMarkup || Self.confirmDiscard("Close this window and discard its markup?")
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        NotificationCenter.default.removeObserver(self)
+        onWindowClose?()
     }
 }
 

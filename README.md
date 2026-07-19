@@ -35,6 +35,7 @@ tools, and rock-solid clipboard support.
 | Copy (Cmd+C) | Flattens image + markup and puts it on the clipboard |
 | Save as PNG (Cmd+S) | Optional file export |
 | Open image (Cmd+O) | Load an image file instead of pasting |
+| New window (Cmd+N) | Work on several images at once; each window is independent |
 
 ## Building and running
 

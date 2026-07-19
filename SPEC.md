@@ -19,6 +19,7 @@ result back to the clipboard for pasting into chats, email, or documents.
 | Tools | Pencil, Highlighter, Eraser, Line, Rectangle, Arrow, Text |
 | File support | Save as PNG (Cmd+S) and Open image (Cmd+O), in addition to clipboard |
 | Canvas sizing | Auto-adjusts to the size of the pasted/opened image |
+| Windows | **File ▸ New (⌘N)** opens additional windows; each is a fully independent document |
 | Distribution | Built and run locally; no App Store, no code-signing requirements |
 
 ## Functional requirements
@@ -34,6 +35,13 @@ result back to the clipboard for pasting into chats, email, or documents.
 - **Open (Cmd+O)**: same as paste, but from a PNG/JPEG/TIFF/HEIC file.
 - **Blank start**: on launch, show a default white canvas (800×600) so the
   app is usable even without pasting.
+- **Multiple windows**: File ▸ New (⌘N) opens another window with a fresh
+  blank canvas, cascaded below-right of the previous one. Every window is
+  an independent document with its own image, markup, undo history, tool,
+  color, and zoom. Menu commands and shortcuts apply to the frontmost
+  window. Close Window (⌘W) closes just that window, asking first if it
+  has unsaved markup; closing the last window quits the app. Quit asks
+  once if any window has markup.
 - **Retina**: pasted images keep their true pixel dimensions; copy/save
   output matches the source resolution (no accidental 2× scaling).
 
@@ -157,7 +165,7 @@ the whole operation and restores the markup as live strokes).
 
 - No moving/dragging selected pixels (selection is for copy/crop only).
 - No fill/bucket, spray, or curve tools.
-- No multiple documents, tabs, or windows.
+- No tabs — each document is its own window.
 - No preferences window.
 - No modification of the underlying image pixels (markup is an overlay).
 
