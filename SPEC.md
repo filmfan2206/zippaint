@@ -92,7 +92,10 @@ modified until the canvas is flattened for copy/save.
   preset level from wherever you are.
 - Range: 25% – 800%.
 - Zoom is **display only** — Copy and Save always output at the image's
-  full resolution. Pasting a new image resets zoom to 100%.
+  full resolution.
+- Pasting or opening an image sets the zoom so the canvas matches the
+  image's real on-screen size: 50% for Retina (2×) screenshots, 100%
+  for ordinary images. The window fits the zoomed size.
 
 ### Tools menu (image operations)
 

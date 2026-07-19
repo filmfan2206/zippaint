@@ -89,3 +89,9 @@ The app becomes useful at the end of this phase.
   discard confirm appears. Cancel / Discard buttons of the close
   confirmation verified hands-on by Lee. File menu order: Close Window
   sits below Save As PNG (Lee's preference).
+- **2026-07-18** — Paste/open now auto-zooms to the image's real
+  on-screen size: 50% for Retina (2×) screenshots (detected from the
+  pixel/point ratio), 100% for ordinary images; the window fits the
+  zoomed size. Display-only — copy/save still full resolution. Verified
+  by scripted paste of a 144-DPI capture (zoom field showed 50%, window
+  fit the point size).

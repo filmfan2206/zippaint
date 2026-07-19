@@ -184,7 +184,7 @@ final class CanvasWindowController: NSWindowController {
             return
         }
         doc.setImage(image, size: size)
-        canvasSizeChanged()
+        canvasSizeChanged(displayScale: displayScale(of: image, pixelSize: size))
     }
 
     @objc func copyCanvas(_ sender: Any?) {
@@ -255,7 +255,7 @@ final class CanvasWindowController: NSWindowController {
             return
         }
         doc.setImage(image, size: size)
-        canvasSizeChanged()
+        canvasSizeChanged(displayScale: displayScale(of: image, pixelSize: size))
         window?.title = "\(url.lastPathComponent) – ZipPaint"
     }
 
@@ -443,21 +443,30 @@ final class CanvasWindowController: NSWindowController {
         colorBar.setCurrent(color)
     }
 
-    private func canvasSizeChanged() {
+    // Pixels per point of the source image: 2 for Retina screenshots, 1 for
+    // ordinary images. Zooming to 1/scale shows the canvas at the size the
+    // image had on screen (display only — output stays full resolution).
+    private func displayScale(of image: NSImage, pixelSize: CGSize) -> CGFloat {
+        guard image.size.width > 0 else { return 1 }
+        let scale = pixelSize.width / image.size.width
+        return scale > 1 ? scale : 1
+    }
+
+    private func canvasSizeChanged(displayScale: CGFloat = 1) {
         canvas.clearSelection()
         canvas.cancelCrop()
         canvas.setFrameSize(doc.canvasSize)
         canvas.needsDisplay = true
-        applyMagnification(1)
-        resizeWindowToFitCanvas()
+        applyMagnification(1 / displayScale)
+        resizeWindowToFitCanvas(zoom: 1 / displayScale)
         updateStatus()
         window?.title = "untitled – ZipPaint"
     }
 
-    private func resizeWindowToFitCanvas() {
+    private func resizeWindowToFitCanvas(zoom: CGFloat = 1) {
         guard let window else { return }
-        let desired = NSSize(width: doc.canvasSize.width + chromeWidth,
-                             height: doc.canvasSize.height + chromeHeight)
+        let desired = NSSize(width: doc.canvasSize.width * zoom + chromeWidth,
+                             height: doc.canvasSize.height * zoom + chromeHeight)
         let visible = window.screen?.visibleFrame
             ?? NSScreen.main?.visibleFrame
             ?? NSRect(x: 0, y: 0, width: 1280, height: 800)

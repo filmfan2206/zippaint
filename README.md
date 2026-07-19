@@ -23,7 +23,7 @@ tools, and rock-solid clipboard support.
 
 | Feature | Notes |
 |---|---|
-| Paste image (Cmd+V) | Canvas auto-sizes to the image; window resizes to fit |
+| Paste image (Cmd+V) | Canvas auto-sizes to the image; Retina screenshots show at 50% zoom (their real on-screen size) |
 | Pencil | Opaque freehand stroke, selectable color and width |
 | Highlighter | Semi-transparent wide stroke that lets the image show through |
 | Eraser | Removes markup strokes, revealing the original image underneath |

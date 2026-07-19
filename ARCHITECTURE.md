@@ -105,7 +105,10 @@ screenshot keeps its full pixel dimensions; the view scales down for
 display if the window is smaller (scrollbars past screen size), but
 `render()` always outputs at 1 canvas point = 1 image pixel. This is what
 prevents the classic "copied screenshot comes out blurry or double-sized"
-bug.
+bug. On paste/open, the display zoom is set to the image's point/pixel
+ratio (50% for a 2× capture, from its DPI metadata) so the canvas appears
+at the size the image had on screen — purely a scroll-view magnification;
+the canvas and output resolution are unaffected.
 
 ### Clipboard (`Clipboard.swift`)
 
