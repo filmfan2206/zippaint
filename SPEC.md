@@ -158,8 +158,8 @@ the whole operation and restores the markup as live strokes).
 
 - Tool palette: vertical 2-column icon grid on the left (like MS Paint).
 - Color bar across the bottom with the current-color well at the left.
-- Standard macOS menu bar: File (Open, Save), Edit (Undo, Redo, Cut n/a,
-  Copy, Paste), with the usual shortcuts.
+- Standard macOS menu bar: File (New, Open, Save, Close Window), Edit
+  (Undo, Redo, Cut n/a, Copy, Paste), with the usual shortcuts.
 
 ## Non-goals (v1)
 

@@ -145,8 +145,8 @@ declares `document`.
 
 Built programmatically in `AppDelegate`:
 
-- **File**: New (Cmd+N), Open… (Cmd+O), Close Window (Cmd+W),
-  Save As PNG… (Cmd+S)
+- **File**: New (Cmd+N), Open… (Cmd+O), Save As PNG… (Cmd+S),
+  Close Window (Cmd+W)
 - **Edit**: Undo (Cmd+Z), Redo (Shift+Cmd+Z), Copy (Cmd+C), Paste (Cmd+V)
 - Standard App and Window menus.
 
