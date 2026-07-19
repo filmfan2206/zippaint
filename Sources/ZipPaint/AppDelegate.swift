@@ -58,8 +58,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         fileMenu.addItem(menuItem("New", #selector(AppDelegate.newDocument(_:)), "n"))
         fileMenu.addItem(menuItem("Open…", #selector(CanvasWindowController.openImage(_:)), "o"))
         fileMenu.addItem(.separator())
-        fileMenu.addItem(menuItem("Close Window", #selector(NSWindow.performClose(_:)), "w"))
         fileMenu.addItem(menuItem("Save As PNG…", #selector(CanvasWindowController.saveImage(_:)), "s"))
+        fileMenu.addItem(menuItem("Close Window", #selector(NSWindow.performClose(_:)), "w"))
         fileItem.submenu = fileMenu
 
         let editItem = NSMenuItem()
