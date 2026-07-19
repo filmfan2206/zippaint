@@ -86,5 +86,6 @@ The app becomes useful at the end of this phase.
   responder chain), then the multi-window bookkeeping on top.
   Verified by scripted UI tests: second window opens, paste lands only
   in the frontmost window, per-window close, last-window-close quits,
-  discard confirm appears. **Hands-on check still wanted**: the
-  Cancel / Discard buttons of the close confirmation.
+  discard confirm appears. Cancel / Discard buttons of the close
+  confirmation verified hands-on by Lee. File menu order: Close Window
+  sits below Save As PNG (Lee's preference).
