@@ -89,6 +89,14 @@ The app becomes useful at the end of this phase.
   discard confirm appears. Cancel / Discard buttons of the close
   confirmation verified hands-on by Lee. File menu order: Close Window
   sits below Save As PNG (Lee's preference).
+- **2026-07-21** — Added a one-click **50%** button below the width picker
+  that halves the canvas's actual pixel dimensions (a real resize, so
+  copy/save output shrinks too — distinct from the display-only 50% paste
+  zoom). Works off the current size (repeated presses compound), flattens
+  markup, and is undoable. Reuses the Resize Image code path via a shared
+  `applyResize(to:)` helper. Decided against auto-shrinking on paste:
+  destructive by default and would degrade non-Retina images. Verified
+  working hands-on by Lee.
 - **2026-07-18** — Paste/open now auto-zooms to the image's real
   on-screen size: 50% for Retina (2×) screenshots (detected from the
   pixel/point ratio), 100% for ordinary images; the window fits the

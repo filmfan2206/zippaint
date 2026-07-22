@@ -94,6 +94,7 @@ final class CanvasWindowController: NSWindowController {
             guard let self else { return }
             self.canvas.setWidthIndex(index, for: self.canvas.tool)
         }
+        palette.onHalveSize = { [weak self] in self?.halveImageSize() }
         palette.showWidths(Tool.pencil.widthOptions,
                            selectedIndex: canvas.widthIndex(for: .pencil))
 
@@ -282,6 +283,22 @@ final class CanvasWindowController: NSWindowController {
         let dialog = ResizeDialog(originalSize: doc.canvasSize,
                                   hasMarkup: doc.hasMarkup)
         guard let newSize = dialog.run() else { return }
+        applyResize(to: newSize)
+    }
+
+    // Halve the canvas's pixel dimensions in one click (the palette "50%"
+    // button). Each press works off the current size, so repeated presses
+    // compound (50% → 25% → …), matching Tools ▸ Resize Image.
+    func halveImageSize() {
+        canvas.commitTextEntry()
+        let newSize = CGSize(width: max(1, (doc.canvasSize.width / 2).rounded()),
+                             height: max(1, (doc.canvasSize.height / 2).rounded()))
+        guard newSize != doc.canvasSize else { NSSound.beep(); return }
+        applyResize(to: newSize)
+    }
+
+    // Flatten current markup and redraw into a new canvas size. Undoable.
+    private func applyResize(to newSize: CGSize) {
         guard let rep = doc.render() else { NSSound.beep(); return }
         // The flattened image is drawn into the new canvas size by
         // drawContent(), which handles the scaling.

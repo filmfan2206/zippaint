@@ -36,7 +36,7 @@ zippaint/
 │   ├── Document.swift       # model: base image + annotation list + undo
 │   ├── Annotation.swift     # stroke/shape/text value types
 │   ├── CanvasView.swift     # NSView: drawing, mouse tracking, flattening
-│   ├── ToolPaletteView.swift# left-side tool buttons + width picker
+│   ├── ToolPaletteView.swift# left-side tool buttons + width picker + 50% button
 │   ├── ColorBarView.swift   # bottom palette + current-color well
 │   ├── ResizeDialog.swift   # Preview-style "Image Dimensions" dialog
 │   └── Clipboard.swift      # NSPasteboard read (paste) / write (copy)

@@ -60,6 +60,7 @@ final class WidthPickerView: NSView {
 final class ToolPaletteView: NSView {
     var onToolChange: ((Tool) -> Void)?
     var onWidthSelect: ((Int) -> Void)?
+    var onHalveSize: (() -> Void)?
 
     private var buttons: [(tool: Tool, button: NSButton)] = []
     private let widthPicker = WidthPickerView()
@@ -101,7 +102,14 @@ final class ToolPaletteView: NSView {
         widthPicker.onSelect = { [weak self] index in self?.onWidthSelect?(index) }
         widthPicker.translatesAutoresizingMaskIntoConstraints = false
 
-        let stack = NSStackView(views: [grid, widthPicker])
+        let halveButton = NSButton(title: "50%", target: self,
+                                   action: #selector(halveClicked))
+        halveButton.bezelStyle = .rounded
+        halveButton.toolTip = "Shrink image to 50% (Cmd+Z to undo)"
+        halveButton.translatesAutoresizingMaskIntoConstraints = false
+        halveButton.widthAnchor.constraint(equalToConstant: 64).isActive = true
+
+        let stack = NSStackView(views: [grid, widthPicker, halveButton])
         stack.orientation = .vertical
         stack.alignment = .centerX
         stack.spacing = 12
@@ -133,5 +141,9 @@ final class ToolPaletteView: NSView {
         guard let entry = buttons.first(where: { $0.button == sender }) else { return }
         select(tool: entry.tool)
         onToolChange?(entry.tool)
+    }
+
+    @objc private func halveClicked() {
+        onHalveSize?()
     }
 }

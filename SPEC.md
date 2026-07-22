@@ -80,6 +80,12 @@ modified until the canvas is flattened for copy/save.
   selectable widths drawn as actual line thicknesses. The options adapt
   to the active tool (pencil/shapes 1–8 px, highlighter 8–30 px, eraser
   diameter, text point size), and each tool remembers its own selection.
+- **50% button**: below the width picker, a one-click shortcut that halves
+  the canvas's actual pixel dimensions (a real resize, not a zoom — the
+  copied/saved output shrinks too). Each press works off the current size,
+  so repeated presses compound (50% → 25% → …). Flattens markup like the
+  resize dialog and is undoable with Cmd+Z. Equivalent to
+  Tools ▸ Resize Image ▸ 50%.
 
 ### Zoom
 
